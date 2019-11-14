@@ -21,10 +21,10 @@ If you have any questions, please send an email nikolay_ryabkov@mckinsey.com
 
 Introduction to the problem
 
-•               There must be a way to supply the application with the input data via command line or text file
-•               The application must run
-•               You should provide sufficient evidence that your solution is complete by, as a minimum, indicating that it works correctly against the supplied test data
-•               Bonus points if you also have a working code for deployment in AWS EKS via Terraform.
+•There must be a way to supply the application with the input data via command line or text file
+•The application must run
+•You should provide sufficient evidence that your solution is complete by, as a minimum, indicating that it works correctly against the supplied test data
+•Bonus points if you also have a working code for deployment in AWS EKS via Terraform.
 
 
  
