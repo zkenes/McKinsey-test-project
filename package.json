@@ -1,0 +1,27 @@
+{
+    "name": "interview-project",
+    "version": "1.0.0",
+    "description": "Interview Task",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+        "start": "npm run build && node dist/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/zkenes/McKinsey-test-project.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/zkenes/McKinsey-test-project/issues"
+    },
+    "homepage": "https://github.com/zkenes/McKinsey-test-project#readme",
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-es2015": "^6.24.1",
+        "rimraf": "^3.0.0"
+    }
+}
