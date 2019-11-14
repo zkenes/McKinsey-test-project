@@ -51,8 +51,8 @@ var Graph = exports.Graph = function () {
             return distance;
         }
     }, {
-        key: "trips",
-        value: function trips(src, dst, limit, condition) {
+        key: "tripsByStopLimit",
+        value: function tripsByStopLimit(src, dst, limit, condition) {
             var _this = this;
 
             var paths = [];
@@ -60,21 +60,19 @@ var Graph = exports.Graph = function () {
                 return edges.destNode;
             });
             childNodes.forEach(function (node) {
-                return _this.allTrips(node, dst, limit, paths, [src]);
+                return _this.allTripsByStopsLimit(node, dst, limit, paths, [src]);
             });
-            console.log("Path", paths);
             return paths.filter(function (path) {
                 return condition(path);
             });
         }
     }, {
-        key: "allTrips",
-        value: function allTrips(src, dst, limit, paths, path) {
+        key: "allTripsByStopsLimit",
+        value: function allTripsByStopsLimit(src, dst, limit, paths, path) {
             var _this2 = this;
 
             var pathCopy = [];
             Object.assign(pathCopy, path);
-
             if (src == dst) {
                 path.push(src);
                 paths.push(path);
@@ -88,14 +86,57 @@ var Graph = exports.Graph = function () {
                 }).forEach(function (node) {
                     var copy = [];
                     Object.assign(copy, pathCopy);
-                    _this2.allTrips(node, dst, limit, paths, copy);
+                    _this2.allTripsByStopsLimit(node, dst, limit, paths, copy);
+                });
+            }
+        }
+
+        //--------------------
+
+    }, {
+        key: "tripsByDistanceLimit",
+        value: function tripsByDistanceLimit(src, dst, limit, condition) {
+            var _this3 = this;
+
+            var paths = [];
+            var childNodes = this.adjacencyMap.get(src).map(function (edges) {
+                return edges.destNode;
+            });
+            childNodes.forEach(function (node) {
+                return _this3.allTripsByDistanceLimit(node, dst, limit, paths, [src]);
+            });
+            return paths.filter(function (path) {
+                return condition(path);
+            });
+        }
+    }, {
+        key: "allTripsByDistanceLimit",
+        value: function allTripsByDistanceLimit(src, dst, limit, paths, path) {
+            var _this4 = this;
+
+            var pathCopy = [];
+            Object.assign(pathCopy, path);
+            if (src == dst) {
+                path.push(src);
+                paths.push(path);
+            }
+            if (this.distance(path) >= limit) {
+                return;
+            } else {
+                pathCopy.push(src);
+                this.adjacencyMap.get(src).map(function (edge) {
+                    return edge.destNode;
+                }).forEach(function (node) {
+                    var copy = [];
+                    Object.assign(copy, pathCopy);
+                    _this4.allTripsByDistanceLimit(node, dst, limit, paths, copy);
                 });
             }
         }
     }, {
         key: "shortestPath",
         value: function shortestPath(src, dst) {
-            var _this3 = this;
+            var _this5 = this;
 
             var map = {};
             var visited = {};
@@ -112,7 +153,7 @@ var Graph = exports.Graph = function () {
                 var node = queue.pop();
                 var start = map[node];
                 visited[node] = true;
-                var edges = _this3.adjacencyMap.get(node);
+                var edges = _this5.adjacencyMap.get(node);
                 edges.forEach(function (edge) {
                     if (visited[edge.destNode] == false) {
                         queue.push(edge.destNode);

@@ -34,16 +34,16 @@ export class Graph {
         return distance;
     }
 
-    trips(src, dst, limit, condition) {
+    tripsByStopLimit(src, dst, limit, condition) {
         const paths = [];
         const childNodes = this.adjacencyMap
             .get(src)
             .map(edges => edges.destNode);
-        childNodes.forEach(node => this.allTrips(node, dst, limit, paths, [src]));
+        childNodes.forEach(node => this.allTripsByStopsLimit(node, dst, limit, paths, [src]));
         return paths.filter(path => condition(path));
     }
 
-    allTrips(src, dst, limit, paths, path) {
+    allTripsByStopsLimit(src, dst, limit, paths, path) {
         const pathCopy = [];
         Object.assign(pathCopy, path);
         if (src == dst) {
@@ -60,7 +60,39 @@ export class Graph {
                 .forEach(node => {
                     const copy = [];
                     Object.assign(copy, pathCopy);
-                    this.allTrips(node, dst, limit, paths, copy);
+                    this.allTripsByStopsLimit(node, dst, limit, paths, copy);
+                });
+        }
+    }
+
+    //--------------------
+    tripsByDistanceLimit(src, dst, limit, condition) {
+        const paths = [];
+        const childNodes = this.adjacencyMap
+            .get(src)
+            .map(edges => edges.destNode);
+        childNodes.forEach(node => this.allTripsByDistanceLimit(node, dst, limit, paths, [src]));
+        return paths.filter(path => condition(path));
+    }
+
+    allTripsByDistanceLimit(src, dst, limit, paths, path) {
+        const pathCopy = [];
+        Object.assign(pathCopy, path);
+        if (src == dst) {
+            path.push(src);
+            paths.push(path);
+        }
+        if (this.distance(path) >= limit) {
+            return;
+        } else {
+            pathCopy.push(src);
+            this.adjacencyMap
+                .get(src)
+                .map(edge => edge.destNode)
+                .forEach(node => {
+                    const copy = [];
+                    Object.assign(copy, pathCopy);
+                    this.allTripsByDistanceLimit(node, dst, limit, paths, copy);
                 });
         }
     }
