@@ -1,6 +1,6 @@
-#Installation
+# Installation
 
-###Prerequisites
+### Prerequisites
 
 ```
 node 8<
@@ -8,7 +8,7 @@ npm
 docker
 ```
 
-###Manually
+### Manually
 
 1. Install required dependencies
 
@@ -22,7 +22,7 @@ npm install
 npm start
 ```
 
-###Using docker
+### Using docker
 
 1. Run docker image
 
