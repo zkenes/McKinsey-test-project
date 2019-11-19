@@ -1,13 +1,15 @@
 variable "profile" {
   description = "AWS User account Profile"
+  default = "zkenes"
 }
 
 variable "region" {
-  default = "us-west-2"
+  default = "eu-central-1"
 }
 
 variable "key" {
   description = "Enter Key name"
+  default = "digital-lab-key"
 }
 
 variable "sub_ids" {
@@ -15,7 +17,7 @@ variable "sub_ids" {
 }
 
 variable "instance-ami" {
-  default = "ami-0b99c7725b9484f9e"
+  default = "ami-0f686bcf073842e84" # AMI of Mumbai region
 }
 
 variable "instance_type" {
@@ -25,15 +27,15 @@ variable "instance_type" {
 
 variable "cluster-name" {
   description = "Cluster Name"
-  default = "digital-lab"
+  default = "digital-labs-cluster"
 }
 
 variable "server-name" {
   description = "Ec2 Server Name"
-  default = "digital-lab"
+  default = "digital-labs-server"
 }
 
 variable "vpc_name" {
   description = "VPC name"
-  default = "digital-lab-vpc"
+  default = "digital-labs-vpc"
 }

@@ -9,7 +9,7 @@
 
 #IAM Role
 resource "aws_iam_role" "worker-node-role" {
-  name = "worker-nodes-role"
+  name = "worker-nodes-role-labs"
 
   assume_role_policy = <<POLICY
 {
@@ -28,7 +28,7 @@ POLICY
 }
 
 resource "aws_iam_policy" "eks-tagging" {
-  name        = "production_resource_tagging_for_eks"
+  name        = "production_resource_tagging_for_eks_labs"
   path        = "/"
   description = "resource_tagging_for_eks"
 
@@ -79,7 +79,7 @@ resource "aws_iam_role_policy_attachment" "worker-node-resource_tagging_for_eks"
 }
 
 resource "aws_iam_instance_profile" "worker-node" {
-  name = "eks-worker-node"
+  name = "eks-worker-node-labs"
   role = "${aws_iam_role.worker-node-role.name}"
 }
 
@@ -187,7 +187,7 @@ resource "aws_autoscaling_group" "worker" {
   max_size             = 3
   min_size             = 2
   name                 = "worker-nodes"
-  vpc_zone_identifier  = flatten(var.worker_subnet)
+  vpc_zone_identifier  = ["${var.worker_subnet}"]
 
   tag {
     key                 = "Name"
