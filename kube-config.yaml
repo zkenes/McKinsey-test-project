@@ -24,4 +24,4 @@ users:
         - "digital-labs-cluster"
 
 
-aws --region eu-central-1 eks update-kubeconfig --name digital-labs-cluster --role-arn arn:aws:iam::954562889687:role/worker-nodes-role-labs
+# aws --region eu-central-1 eks update-kubeconfig --name digital-labs-cluster --role-arn arn:aws:iam::954562889687:role/worker-nodes-role-labs
